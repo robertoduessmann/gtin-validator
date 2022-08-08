@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class ValidatorController {
+class GtinValidatorController(private val service: GtinValidatorService) {
 
-    @GetMapping("/{gtin}")
-    fun isValid(@PathVariable gtin: String) = Gtin(gtin).isValid()
+	@GetMapping("/gtin/{gtin}/status")
+	fun isValid(@PathVariable gtin: String): GtinResponse {
+		return service.isValid(Gtin(gtin))
+	}
 }
